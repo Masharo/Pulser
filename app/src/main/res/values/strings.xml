@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Pulser</string>
+    <string name="view_data_main">Посмотреть данные</string>
+    <string name="load_data_main">Выгрузить данные</string>
+    <string name="connect_device_main">Подключить устройство</string>
+    <string name="settings_main">Настройки</string>
+    <string name="title_activity_bluetooth">BluetoothActivity</string>
+</resources>
