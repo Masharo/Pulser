@@ -1,4 +1,4 @@
-package com.masharo.pulser.ui.screen
+package com.masharo.pulser.presentation.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -15,8 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.masharo.pulser.R
-import com.masharo.pulser.ui.theme.LoveTea
-import com.masharo.pulser.ui.theme.PulserTheme
+import com.masharo.pulser.presentation.ui.theme.LoveTea
+import com.masharo.pulser.presentation.ui.theme.PulserTheme
 
 @Composable
 fun MenuScreen(

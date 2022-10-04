@@ -1,4 +1,4 @@
-package com.masharo.pulser.ui.theme
+package com.masharo.pulser.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
