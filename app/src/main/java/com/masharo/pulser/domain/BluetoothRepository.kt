@@ -10,4 +10,10 @@ interface BluetoothRepository {
 
     fun deviceHavePermission(): Boolean
 
+    fun isActiveBluetooth(): Boolean
+
+    fun enableBluetooth()
+
+    fun disableBluetooth()
+
 }

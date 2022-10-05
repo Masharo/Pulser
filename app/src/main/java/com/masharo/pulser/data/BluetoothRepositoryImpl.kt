@@ -4,18 +4,32 @@ import android.bluetooth.BluetoothDevice
 import com.masharo.pulser.data.bluetoothService.BluetoothService
 import com.masharo.pulser.domain.BluetoothRepository
 
-class BluetoothRepositoryImpl(bluetoothService: BluetoothService): BluetoothRepository {
+class BluetoothRepositoryImpl(
+    private val bluetoothService: BluetoothService
+): BluetoothRepository {
 
     override fun getListBondedDevices(): List<BluetoothDevice> {
-        TODO("Not yet implemented")
+        return bluetoothService.getDevices()
     }
 
     override fun deviceHaveBluetooth(): Boolean {
-        TODO("Not yet implemented")
+        return bluetoothService.haveBluetooth()
     }
 
     override fun deviceHavePermission(): Boolean {
-        TODO("Not yet implemented")
+        return bluetoothService.havePermission()
+    }
+
+    override fun isActiveBluetooth(): Boolean {
+        return bluetoothService.isActiveBluetooth()
+    }
+
+    override fun enableBluetooth() {
+        bluetoothService.enableBluetooth()
+    }
+
+    override fun disableBluetooth() {
+        bluetoothService.disableBluetooth()
     }
 
 }

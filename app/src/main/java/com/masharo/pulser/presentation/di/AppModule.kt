@@ -8,7 +8,10 @@ val appModule = module {
 
     viewModel<ConnectDeviceViewModel>{
         ConnectDeviceViewModel(
-            context = get()
+            context = get(),
+            deviceValidateUseCase = get(),
+            isActiveBluetoothUseCase = get(),
+            getBondedDevicesUseCase = get()
         )
     }
 

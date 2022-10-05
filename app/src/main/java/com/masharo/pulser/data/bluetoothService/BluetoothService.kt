@@ -10,4 +10,10 @@ interface BluetoothService {
 
     fun havePermission(): Boolean
 
+    fun isActiveBluetooth(): Boolean
+
+    fun disableBluetooth()
+
+    fun enableBluetooth()
+
 }

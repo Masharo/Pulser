@@ -8,19 +8,19 @@ import android.content.Context.BLUETOOTH_SERVICE
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.content.getSystemService
 
 class BluetoothServiceImpl(private val context: Context): BluetoothService {
 
+    private val bluetoothService = context.getSystemService(BluetoothManager::class.java)
 
     @SuppressLint("MissingPermission")
-    override fun getDevices() = context
-        .getSystemService(BluetoothManager::class.java)!!
+    override fun getDevices() = bluetoothService!!
         .adapter
         .bondedDevices
         .toList()
 
-    override fun haveBluetooth() = context
-        .getSystemService(BLUETOOTH_SERVICE)
+    override fun haveBluetooth() = bluetoothService
         ?.let { true }
         ?: false
 
@@ -31,5 +31,22 @@ class BluetoothServiceImpl(private val context: Context): BluetoothService {
             true
         }
 
+    override fun isActiveBluetooth(): Boolean {
+        return bluetoothService!!
+            .adapter
+            .isEnabled
+    }
+
+    override fun disableBluetooth() {
+        bluetoothService!!
+            .adapter
+            .disable()
+    }
+
+    override fun enableBluetooth() {
+        bluetoothService!!
+            .adapter
+            .enable()
+    }
 
 }
