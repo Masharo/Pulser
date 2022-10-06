@@ -19,13 +19,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
+import com.masharo.pulser.presentation.model.Device
+import com.masharo.pulser.presentation.ui.theme.LightGray
+import com.masharo.pulser.presentation.ui.theme.Selected
 import com.masharo.pulser.presentation.vm.ConnectDeviceViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun ConnectDeviceScreen(owner: LifecycleOwner) {
     val listDevice = remember {
-        mutableStateOf<List<String>>(listOf())
+        mutableStateOf<List<Device>>(listOf())
     }
 
     val vm = getViewModel<ConnectDeviceViewModel>()
@@ -33,7 +36,10 @@ fun ConnectDeviceScreen(owner: LifecycleOwner) {
         listDevice.value = it
     }
 
-    Column {
+    Column(
+        modifier = Modifier.
+            padding(10.dp)
+    ) {
         Button(onClick = vm::testBluetooth) {
             Text(text = "Проверить Bluetooth")
         }
@@ -43,8 +49,10 @@ fun ConnectDeviceScreen(owner: LifecycleOwner) {
 
         LazyColumn {
             items(listDevice.value) {
-                Text(
-                    text = it
+                DeviceItem(
+                    title = it.name,
+                    mac = it.mac,
+                    isSelect = it.isSelect
                 )
             }
         }
@@ -55,15 +63,30 @@ fun ConnectDeviceScreen(owner: LifecycleOwner) {
 fun DeviceItem(
     title: String,
     mac: String,
-    isDefault: Boolean
+    isSelect: Boolean
 ) {
 
-    Card {
-        Row {
-            Column {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp),
+        backgroundColor = LightGray
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(
+                    top = 5.dp,
+                    bottom = 5.dp,
+                    start = 5.dp,
+                    end = 10.dp
+                )
+
+        ) {
+            Column(
+                modifier = Modifier.weight(1F)
+            ) {
 
                 Text(
-//            modifier = Modifie,
                     text = title,
                     style = MaterialTheme.typography.h5
                 )
@@ -81,7 +104,10 @@ fun DeviceItem(
                     .background(Color.Gray)
                     .padding(2.dp)
                     .clip(CircleShape)
-                    .background(Color.White)
+                    .background(
+                        if (isSelect) Selected
+                        else LightGray
+                    )
                     .align(Alignment.CenterVertically)
 
             )
@@ -91,22 +117,27 @@ fun DeviceItem(
 }
 
 @Preview(
-    showBackground = true
+    showBackground = true,
+    name = "NotConnected"
 )
 @Composable
-fun ItemPreview() {
+fun ItemCPreview() {
     DeviceItem(
         title = "Title",
         mac = "00:11:22:33:44:55",
-        isDefault = false
+        isSelect = true
     )
 }
 
 @Preview(
     showBackground = true,
-    showSystemUi = true
+    name = "Connected"
 )
 @Composable
-fun ConnectDevicePreview() {
-    
+fun ItemNCPreview() {
+    DeviceItem(
+        title = "Title",
+        mac = "00:11:22:33:44:55",
+        isSelect = false
+    )
 }
