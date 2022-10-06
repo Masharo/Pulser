@@ -10,6 +10,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -44,7 +45,9 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("connect") {
-                            ConnectDeviceScreen()
+                            ConnectDeviceScreen(
+                                owner = this@MainActivity as LifecycleOwner
+                            )
                         }
                     }
                 }

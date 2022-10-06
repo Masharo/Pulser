@@ -11,7 +11,9 @@ val appModule = module {
             context = get(),
             deviceValidateUseCase = get(),
             isActiveBluetoothUseCase = get(),
-            getBondedDevicesUseCase = get()
+            getBondedDevicesUseCase = get(),
+            enableBluetoothUseCase = get(),
+            disableBluetoothUseCase = get()
         )
     }
 

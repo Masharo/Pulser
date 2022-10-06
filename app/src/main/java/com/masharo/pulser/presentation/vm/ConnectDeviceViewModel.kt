@@ -2,6 +2,8 @@ package com.masharo.pulser.presentation.vm
 
 import android.content.Context
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.masharo.pulser.domain.usecase.*
 
@@ -14,6 +16,9 @@ class ConnectDeviceViewModel(
     private val disableBluetoothUseCase: DisableBluetoothUseCase
 ): ViewModel() {
 
+    private val deviceListLocal = MutableLiveData<List<String>>()
+    val deviceList: LiveData<List<String>> = deviceListLocal
+
     fun testBluetooth() {
         Toast.makeText(
             context,
@@ -24,7 +29,9 @@ class ConnectDeviceViewModel(
 
     fun getListBluetooth() {
 
-        Toast.makeText(context, getBondedDevicesUseCase.execute().toString(), Toast.LENGTH_LONG).show()
+        deviceListLocal.value = getBondedDevicesUseCase.execute().map { it.name }
+
+//        Toast.makeText(context, getBondedDevicesUseCase.execute().toString(), Toast.LENGTH_LONG).show()
 
 //        ContextCompat.getSystemService(context, BluetoothManager::class.java)!!.adapter.bondedDevices.let {
 //            val device = it.toList()[1]
