@@ -1,6 +1,7 @@
 package com.masharo.pulser.presentation.di
 
 import com.masharo.pulser.domain.usecase.*
+import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -32,6 +33,13 @@ val domainModule = module {
     factory<DisableBluetoothUseCase> {
         DisableBluetoothUseCase(
             bluetoothRepository = get()
+        )
+    }
+
+    factory<GetDataDeviceUseCase> {
+        GetDataDeviceUseCase(
+            bluetoothRepository = get(),
+            dispatcher = Dispatchers.IO
         )
     }
 

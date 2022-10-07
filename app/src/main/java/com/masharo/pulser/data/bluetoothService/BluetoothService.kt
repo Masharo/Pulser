@@ -1,6 +1,8 @@
 package com.masharo.pulser.data.bluetoothService
 
 import android.bluetooth.BluetoothDevice
+import com.masharo.pulser.presentation.model.Device
+import java.io.BufferedInputStream
 
 interface BluetoothService {
 
@@ -15,5 +17,7 @@ interface BluetoothService {
     fun disableBluetooth()
 
     fun enableBluetooth()
+
+    suspend fun connect(device: Device): BufferedInputStream
 
 }

@@ -9,10 +9,15 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.content.getSystemService
+import com.masharo.pulser.presentation.model.Device
+import java.io.BufferedInputStream
+import java.io.InputStream
+import java.util.*
 
 class BluetoothServiceImpl(private val context: Context): BluetoothService {
 
     private val bluetoothService = context.getSystemService(BluetoothManager::class.java)
+    private val uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
 
     @SuppressLint("MissingPermission")
     override fun getDevices() = bluetoothService!!
@@ -47,6 +52,17 @@ class BluetoothServiceImpl(private val context: Context): BluetoothService {
         bluetoothService!!
             .adapter
             .enable()
+    }
+
+    override suspend fun connect(device: Device): BufferedInputStream {
+        bluetoothService!!
+            .adapter
+            .getRemoteDevice(device.mac)
+            .createRfcommSocketToServiceRecord(uuid)
+            .apply {
+                connect()
+                return inputStream.buffered()
+            }
     }
 
 }

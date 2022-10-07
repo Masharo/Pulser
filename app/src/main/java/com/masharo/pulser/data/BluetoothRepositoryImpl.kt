@@ -3,6 +3,9 @@ package com.masharo.pulser.data
 import android.bluetooth.BluetoothDevice
 import com.masharo.pulser.data.bluetoothService.BluetoothService
 import com.masharo.pulser.domain.BluetoothRepository
+import com.masharo.pulser.domain.model.PulseData
+import com.masharo.pulser.presentation.model.Device
+import java.io.InputStream
 
 class BluetoothRepositoryImpl(
     private val bluetoothService: BluetoothService
@@ -30,6 +33,12 @@ class BluetoothRepositoryImpl(
 
     override fun disableBluetooth() {
         bluetoothService.disableBluetooth()
+    }
+
+    override suspend fun connectDevice(device: Device): PulseData {
+        return PulseData(
+            bluetoothService.connect(device)
+        )
     }
 
 }

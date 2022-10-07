@@ -32,7 +32,7 @@ fun ConnectDeviceScreen(owner: LifecycleOwner) {
     }
 
     val vm = getViewModel<ConnectDeviceViewModel>()
-    vm.deviceList.observe(owner) {
+    vm.deviceListLive.observe(owner) {
         listDevice.value = it
     }
 
