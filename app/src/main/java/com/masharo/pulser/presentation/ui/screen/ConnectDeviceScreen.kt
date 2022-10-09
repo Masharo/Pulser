@@ -1,6 +1,7 @@
 package com.masharo.pulser.presentation.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import com.masharo.pulser.presentation.model.Device
@@ -50,9 +50,8 @@ fun ConnectDeviceScreen(owner: LifecycleOwner) {
         LazyColumn {
             items(listDevice.value) {
                 DeviceItem(
-                    title = it.name,
-                    mac = it.mac,
-                    isSelect = it.isSelect
+                    vm = vm,
+                    device = it
                 )
             }
         }
@@ -61,15 +60,17 @@ fun ConnectDeviceScreen(owner: LifecycleOwner) {
 
 @Composable
 fun DeviceItem(
-    title: String,
-    mac: String,
-    isSelect: Boolean
+    vm: ConnectDeviceViewModel,
+    device: Device
 ) {
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp),
+            .padding(5.dp)
+            .clickable {
+                vm.connectToDevice(device)
+            },
         backgroundColor = LightGray
     ) {
         Row(
@@ -87,11 +88,11 @@ fun DeviceItem(
             ) {
 
                 Text(
-                    text = title,
+                    text = device.name,
                     style = MaterialTheme.typography.h5
                 )
                 Text(
-                    text = mac,
+                    text = device.mac,
                     style = MaterialTheme.typography.body1
                 )
 
@@ -105,7 +106,7 @@ fun DeviceItem(
                     .padding(2.dp)
                     .clip(CircleShape)
                     .background(
-                        if (isSelect) Selected
+                        if (device.isSelect) Selected
                         else LightGray
                     )
                     .align(Alignment.CenterVertically)
@@ -116,28 +117,30 @@ fun DeviceItem(
 
 }
 
-@Preview(
-    showBackground = true,
-    name = "NotConnected"
-)
-@Composable
-fun ItemCPreview() {
-    DeviceItem(
-        title = "Title",
-        mac = "00:11:22:33:44:55",
-        isSelect = true
-    )
-}
-
-@Preview(
-    showBackground = true,
-    name = "Connected"
-)
-@Composable
-fun ItemNCPreview() {
-    DeviceItem(
-        title = "Title",
-        mac = "00:11:22:33:44:55",
-        isSelect = false
-    )
-}
+//@Preview(
+//    showBackground = true,
+//    name = "NotConnected"
+//)
+//@Composable
+//fun ItemCPreview() {
+//    DeviceItem(
+//        Device(
+//            name = "Title",
+//            mac = "00:11:22:33:44:55",
+//            isSelect = true
+//        )
+//    )
+//}
+//
+//@Preview(
+//    showBackground = true,
+//    name = "Connected"
+//)
+//@Composable
+//fun ItemNCPreview() {
+//    DeviceItem(
+//        title = "Title",
+//        mac = "00:11:22:33:44:55",
+//        isSelect = false
+//    )
+//}

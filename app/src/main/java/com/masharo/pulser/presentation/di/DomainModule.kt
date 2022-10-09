@@ -36,10 +36,9 @@ val domainModule = module {
         )
     }
 
-    factory<GetDataDeviceUseCase> {
-        GetDataDeviceUseCase(
-            bluetoothRepository = get(),
-            dispatcher = Dispatchers.IO
+    factory<ConnectDeviceUseCase> {
+        ConnectDeviceUseCase(
+            bluetoothRepository = get()
         )
     }
 

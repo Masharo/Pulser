@@ -1,6 +1,7 @@
 package com.masharo.pulser.data
 
 import android.bluetooth.BluetoothDevice
+import androidx.lifecycle.LiveData
 import com.masharo.pulser.data.bluetoothService.BluetoothService
 import com.masharo.pulser.domain.BluetoothRepository
 import com.masharo.pulser.domain.model.PulseData
@@ -35,10 +36,8 @@ class BluetoothRepositoryImpl(
         bluetoothService.disableBluetooth()
     }
 
-    override suspend fun connectDevice(device: Device): PulseData {
-        return PulseData(
-            bluetoothService.connect(device)
-        )
+    override fun connectDevice(device: Device): LiveData<PulseData> {
+        return bluetoothService.connect(device)
     }
 
 }

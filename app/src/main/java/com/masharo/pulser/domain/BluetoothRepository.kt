@@ -1,6 +1,7 @@
 package com.masharo.pulser.domain
 
 import android.bluetooth.BluetoothDevice
+import androidx.lifecycle.LiveData
 import com.masharo.pulser.domain.model.PulseData
 import com.masharo.pulser.presentation.model.Device
 
@@ -18,6 +19,6 @@ interface BluetoothRepository {
 
     fun disableBluetooth()
 
-    suspend fun connectDevice(device: Device): PulseData
+    fun connectDevice(device: Device): LiveData<PulseData>
 
 }

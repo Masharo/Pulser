@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.masharo.pulser.presentation.ui.screen.ConnectDeviceScreen
 import com.masharo.pulser.presentation.ui.screen.MenuScreen
+import com.masharo.pulser.presentation.ui.screen.ScheduleScreen
 import com.masharo.pulser.presentation.ui.theme.PulserTheme
 import java.io.InputStream
 
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     NavHost(
-                        startDestination = "menu",
+                        startDestination = "schedule",
                         navController = navController
                     ) {
                         composable("menu") {
@@ -48,6 +49,9 @@ class MainActivity : ComponentActivity() {
                             ConnectDeviceScreen(
                                 owner = this@MainActivity as LifecycleOwner
                             )
+                        }
+                        composable("schedule") {
+                            ScheduleScreen()
                         }
                     }
                 }

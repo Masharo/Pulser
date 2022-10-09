@@ -16,13 +16,17 @@ class ConnectDeviceViewModel(
     private val isActiveBluetoothUseCase: IsActiveBluetoothUseCase,
     private val getBondedDevicesUseCase: GetBondedDevicesUseCase,
     private val enableBluetoothUseCase: EnableBluetoothUseCase,
-    private val disableBluetoothUseCase: DisableBluetoothUseCase
+    private val disableBluetoothUseCase: DisableBluetoothUseCase,
+    private val connectDeviceUseCase: ConnectDeviceUseCase
 ): ViewModel() {
 
     private val deviceListLiveLocal = MutableLiveData<List<Device>>()
     val deviceListLive: LiveData<List<Device>> = deviceListLiveLocal
 
-    private val dataLiveLocal = MutableLiveData<PulseData>()
+    var dataLive: LiveData<PulseData> = MutableLiveData()
+        private set(value) {
+            field = value
+        }
 
     fun testBluetooth() {
         Toast.makeText(
@@ -30,6 +34,10 @@ class ConnectDeviceViewModel(
             if (deviceValidateUseCase.execute() && isActiveBluetoothUseCase.execute()) "ON"
             else "OFF",
             Toast.LENGTH_LONG).show()
+    }
+
+    fun connectToDevice(device: Device) {
+        dataLive = connectDeviceUseCase.execute(device)
     }
 
     fun getListBluetooth() {
