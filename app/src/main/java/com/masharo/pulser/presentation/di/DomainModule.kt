@@ -42,4 +42,11 @@ val domainModule = module {
         )
     }
 
+    factory<SaveBluetoothDataToDatabaseUseCase> {
+        SaveBluetoothDataToDatabaseUseCase(
+            workerRepository = get(),
+            dispatcher = Dispatchers.IO
+        )
+    }
+
 }

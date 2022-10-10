@@ -20,6 +20,8 @@ interface BluetoothService {
 
     fun enableBluetooth()
 
-    fun connect(device: Device): LiveData<PulseData>
+    fun connect(device: Device): Boolean
+
+    fun getData(): BufferedInputStream?
 
 }

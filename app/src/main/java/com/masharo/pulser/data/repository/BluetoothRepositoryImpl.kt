@@ -1,4 +1,4 @@
-package com.masharo.pulser.data
+package com.masharo.pulser.data.repository
 
 import android.bluetooth.BluetoothDevice
 import androidx.lifecycle.LiveData
@@ -36,8 +36,10 @@ class BluetoothRepositoryImpl(
         bluetoothService.disableBluetooth()
     }
 
-    override fun connectDevice(device: Device): LiveData<PulseData> {
+    override fun connectDevice(device: Device): Boolean {
         return bluetoothService.connect(device)
     }
+
+
 
 }

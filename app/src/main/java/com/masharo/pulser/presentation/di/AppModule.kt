@@ -14,7 +14,8 @@ val appModule = module {
             getBondedDevicesUseCase = get(),
             enableBluetoothUseCase = get(),
             disableBluetoothUseCase = get(),
-            connectDeviceUseCase = get()
+            connectDeviceUseCase = get(),
+            saveBluetoothDataToDatabaseUseCase = get()
         )
     }
 

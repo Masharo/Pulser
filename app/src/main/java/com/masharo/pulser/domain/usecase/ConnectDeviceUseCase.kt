@@ -9,7 +9,7 @@ class ConnectDeviceUseCase(
     private val bluetoothRepository: BluetoothRepository
 ) {
 
-    fun execute(device: Device): LiveData<PulseData> {
+    fun execute(device: Device): Boolean {
         return bluetoothRepository.connectDevice(device)
     }
 

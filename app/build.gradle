@@ -94,3 +94,9 @@ dependencies {
 dependencies {
     implementation("com.himanshoe:charty:1.0.0")
 }
+
+dependencies {
+    def work_version = "2.7.1"
+
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+}

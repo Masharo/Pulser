@@ -1,4 +1,4 @@
-package com.masharo.pulser.data
+package com.masharo.pulser.data.repository
 
 import com.masharo.pulser.data.database.PulserStorage
 import com.masharo.pulser.data.model.Coords

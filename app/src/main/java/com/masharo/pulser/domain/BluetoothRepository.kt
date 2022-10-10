@@ -19,6 +19,6 @@ interface BluetoothRepository {
 
     fun disableBluetooth()
 
-    fun connectDevice(device: Device): LiveData<PulseData>
+    fun connectDevice(device: Device): Boolean
 
 }

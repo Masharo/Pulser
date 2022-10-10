@@ -21,7 +21,7 @@ class BluetoothServiceImpl(private val context: Context): BluetoothService {
 
     private val bluetoothService = context.getSystemService(BluetoothManager::class.java)
     private val uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
-    private var data = MutableLiveData<PulseData>()
+    private var data: BufferedInputStream? = null
 
     @SuppressLint("MissingPermission")
     override fun getDevices() = bluetoothService!!
@@ -58,18 +58,24 @@ class BluetoothServiceImpl(private val context: Context): BluetoothService {
             .enable()
     }
 
-    override fun connect(device: Device): LiveData<PulseData> {
-        bluetoothService!!
-            .adapter
-            .getRemoteDevice(device.mac)
-            .createRfcommSocketToServiceRecord(uuid)
-            .apply {
-                connect()
-                data = MutableLiveData(
-                    PulseData(inputStream.buffered())
-                )
-                return data
-            }
+    override fun connect(device: Device): Boolean {
+        try {
+            bluetoothService!!
+                .adapter
+                .getRemoteDevice(device.mac)
+                .createRfcommSocketToServiceRecord(uuid)
+                .apply {
+                    connect()
+                    data = inputStream.buffered(5)
+                    return true
+                }
+        } catch (_: Exception) {
+            return false
+        }
+    }
+
+    override fun getData(): BufferedInputStream? {
+        return data
     }
 
 }
