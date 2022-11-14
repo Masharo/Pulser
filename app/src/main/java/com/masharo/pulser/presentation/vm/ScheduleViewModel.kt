@@ -3,28 +3,37 @@ package com.masharo.pulser.presentation.vm
 import androidx.compose.foundation.gestures.TransformableState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import com.masharo.pulser.presentation.model.Point
 
-class ScheduleViewModel(
-    var width: Float = 0f,
-    var height: Float = 0f
-) {
+class ScheduleViewModel {
 
-    var visibleCount: Int = 10
-        set(value) {
-            field = value
-            endItemCalculate()
-            updateLocalList()
-            maxUpdate()
-        }
+    private val visibleCount = mutableStateOf(10)
+    val startItem = mutableStateOf(0)
+    private val width = mutableStateOf(0f)
+    private val height = mutableStateOf(0f)
 
-    var startItem = 0
-        set(value) {
-            field = value
-            endItemCalculate()
-            updateLocalList()
-            maxUpdate()
-        }
+    fun setWidth(width: Float) {
+        this.width.value = width
+    }
+
+    fun setHeight(height: Float) {
+        this.height.value = height
+    }
+
+    fun setVisibleCount(value: Int) {
+        visibleCount.value = value
+        endItemCalculate()
+        updateLocalList()
+        maxUpdate()
+    }
+
+    fun setStartItem(value: Int) {
+        startItem.value = value
+        endItemCalculate()
+        updateLocalList()
+        maxUpdate()
+    }
 
     private val points = listOf(
         Point(
@@ -72,9 +81,9 @@ class ScheduleViewModel(
             time = 12f
         )
     )
-    var endItem = startItem + visibleCount
+    var endItem = startItem.value + visibleCount.value
         private set(value) { field = value }
-    var visiblePoints = points.subList(startItem, endItem)
+    var visiblePoints = points.subList(startItem.value, endItem)
         private set(value) { field = value }
 
     private var yMin = 0f
@@ -99,7 +108,7 @@ class ScheduleViewModel(
             it.value
         }
 
-        yParam = height / ( yMax - yMin)
+        yParam = height.value / ( yMax - yMin)
 
         xMin = visiblePoints.minOf {
             it.time
@@ -109,12 +118,12 @@ class ScheduleViewModel(
             it.time
         }
 
-        xParam = width / ( xMax - xMin)
+        xParam = width.value / ( xMax - xMin)
     }
 
     fun endItemCalculate() {
         endItem =
-            (startItem + visibleCount).let {
+            (startItem.value + visibleCount.value).let {
                 if (it >= points.size) {
                     points.size
                 } else {
@@ -125,7 +134,7 @@ class ScheduleViewModel(
 
     fun updateLocalList() {
         points.subList(
-            startItem,
+            startItem.value,
             endItem
         )
     }

@@ -22,6 +22,8 @@ fun ScheduleScreen() {
 //        state.visibleCount = (state.visibleCount / zoomChange).roundToInt()
 //    }
 
+    val state = ScheduleViewModel()
+
     Canvas(
         modifier = Modifier
             .fillMaxSize()
@@ -34,10 +36,8 @@ fun ScheduleScreen() {
         val chartWidth = size.width - 128.dp.value
         val chartHeight = size.height - 64.dp.value
 
-        val state = ScheduleViewModel(chartWidth, chartHeight)
-
-//        state.width = chartWidth
-//        state.height = chartHeight
+        state.setWidth(chartWidth)
+        state.setHeight(chartHeight)
 
         drawLine(
             color = Color.White,
@@ -53,7 +53,7 @@ fun ScheduleScreen() {
             end = Offset(chartWidth, chartHeight)
         )
 
-        for (i in state.startItem until state.endItem - 1) {
+        for (i in state.startItem.value until state.endItem - 1) {
 
             val itItem = state.visiblePoints[i]
             val nextItem = state.visiblePoints[i + 1]
