@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.masharo.pulser.domain.model.PulseData
 import com.masharo.pulser.presentation.model.Device
 import java.io.BufferedInputStream
+import java.io.InputStream
 
 interface BluetoothService {
 
@@ -22,6 +23,6 @@ interface BluetoothService {
 
     fun connect(device: Device): Boolean
 
-    fun getData(): BufferedInputStream?
+    fun getData(): InputStream?
 
 }

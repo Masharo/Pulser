@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     NavHost(
-                        startDestination = "menu",
+                        startDestination = "schedule",
                         navController = navController
                     ) {
                         composable("menu") {

@@ -2,6 +2,8 @@ package com.masharo.pulser.presentation.ui.screen
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.TransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,9 +13,14 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.masharo.pulser.presentation.vm.ScheduleViewModel
+import kotlin.math.roundToInt
 
 @Composable
 fun ScheduleScreen() {
+
+//    val transformableState = TransformableState { zoomChange, _, _ ->
+//        state.visibleCount = (state.visibleCount / zoomChange).roundToInt()
+//    }
 
     Canvas(
         modifier = Modifier
@@ -21,11 +28,16 @@ fun ScheduleScreen() {
             .background(
                 Color(0xFF182028)
             )
+//            .transformable(state.transformableState)
     ) {
 
         val chartWidth = size.width - 128.dp.value
         val chartHeight = size.height - 64.dp.value
+
         val state = ScheduleViewModel(chartWidth, chartHeight)
+
+//        state.width = chartWidth
+//        state.height = chartHeight
 
         drawLine(
             color = Color.White,

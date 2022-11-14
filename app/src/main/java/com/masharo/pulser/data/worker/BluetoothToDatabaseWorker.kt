@@ -24,22 +24,31 @@ class BluetoothToDatabaseWorker(
 
     override suspend fun doWork(): Result {
 
-        bluetoothService.getData()?.let {
-            while (it != null) {
-                coroutineScope {
-                    var buf: String? = null
-                    withContext(Dispatchers.IO) {
-                        buf = BufferedReader(InputStreamReader(it)).readLine()
-                    }
-                    launch(Dispatchers.Main) {
-                        println(buf?.let { it } ?: "null")
-                    }
-                }
+        while (true) {
 
+            bluetoothService.getData().let {
+
+                while (it != null) {
+
+                    if (it.available() > 0) {
+
+                        coroutineScope {
+                            var buf: String?
+                            withContext(Dispatchers.IO) {
+
+                                buf = it.read().toString()
+    //                        buf = BufferedReader(InputStreamReader(it)).readLine()
+                            }
+                            launch(Dispatchers.Main) {
+                                println(buf ?: "null")
+                            }
+                        }
+
+                    }
+
+                }
             }
         }
-
-        return Result.success()
     }
 
 }

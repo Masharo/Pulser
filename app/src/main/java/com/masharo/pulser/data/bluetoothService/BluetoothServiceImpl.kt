@@ -4,16 +4,10 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothManager
 import android.content.Context
-import android.content.Context.BLUETOOTH_SERVICE
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.content.ContextCompat.checkSelfPermission
-import androidx.core.content.getSystemService
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.masharo.pulser.domain.model.PulseData
 import com.masharo.pulser.presentation.model.Device
-import java.io.BufferedInputStream
 import java.io.InputStream
 import java.util.*
 
@@ -21,7 +15,7 @@ class BluetoothServiceImpl(private val context: Context): BluetoothService {
 
     private val bluetoothService = context.getSystemService(BluetoothManager::class.java)
     private val uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
-    private var data: BufferedInputStream? = null
+    private var data: InputStream? = null
 
     @SuppressLint("MissingPermission")
     override fun getDevices() = bluetoothService!!
@@ -66,7 +60,7 @@ class BluetoothServiceImpl(private val context: Context): BluetoothService {
                 .createRfcommSocketToServiceRecord(uuid)
                 .apply {
                     connect()
-                    data = inputStream.buffered(5)
+                    data = inputStream
                     return true
                 }
         } catch (_: Exception) {
@@ -74,7 +68,7 @@ class BluetoothServiceImpl(private val context: Context): BluetoothService {
         }
     }
 
-    override fun getData(): BufferedInputStream? {
+    override fun getData(): InputStream? {
         return data
     }
 

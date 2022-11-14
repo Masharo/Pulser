@@ -26,7 +26,7 @@ class ScheduleViewModel(
             maxUpdate()
         }
 
-    private val points = listOf<Point>(
+    private val points = listOf(
         Point(
             value = 1f,
             time = 1f
