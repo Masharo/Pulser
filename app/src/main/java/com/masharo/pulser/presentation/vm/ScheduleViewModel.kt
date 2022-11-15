@@ -5,20 +5,28 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import com.masharo.pulser.presentation.model.Point
+import java.util.*
 
 class ScheduleViewModel {
 
     private val visibleCount = mutableStateOf(10)
     val startItem = mutableStateOf(0)
-    private val width = mutableStateOf(0f)
-    private val height = mutableStateOf(0f)
+    val width = mutableStateOf(0f)
+    val height = mutableStateOf(0f)
+    val stateId = mutableStateOf(UUID.randomUUID().toString())
+
+    private fun updateState() {
+        stateId.value = UUID.randomUUID().toString()
+    }
 
     fun setWidth(width: Float) {
         this.width.value = width
+        updateState()
     }
 
     fun setHeight(height: Float) {
         this.height.value = height
+        updateState()
     }
 
     fun setVisibleCount(value: Int) {
@@ -26,6 +34,7 @@ class ScheduleViewModel {
         endItemCalculate()
         updateLocalList()
         maxUpdate()
+        updateState()
     }
 
     fun setStartItem(value: Int) {
@@ -33,6 +42,7 @@ class ScheduleViewModel {
         endItemCalculate()
         updateLocalList()
         maxUpdate()
+        updateState()
     }
 
     private val points = listOf(
